@@ -11,6 +11,8 @@ public class PlayerController : MonoBehaviour
     [SerializeField] Text scoreText, bestScoreText;
     string bestScoreKey = "BestScore";
     public GameObject restartPanel, playGamePanel;
+    public Animator textAnim;
+    bool messageShow = false;
     private void Start()
     {
         if (RestartGame.isRestart)
@@ -80,7 +82,12 @@ public class PlayerController : MonoBehaviour
             if (PlayerPrefs.GetFloat(bestScoreKey) < score)
             {
                 PlayerPrefs.SetFloat(bestScoreKey, score);
-                scoreText.color = Color.blue;
+                if (!messageShow)
+                {
+                    scoreText.color = Color.blue;
+                    textAnim.SetTrigger("TextShow");
+                    messageShow = true;
+                }
             }
             scoreText.text = "Score: " + score;
             //bestScoreText.text = "Best Score: " + PlayerPrefs.GetFloat(bestScoreKey);
