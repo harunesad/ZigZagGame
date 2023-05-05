@@ -30,6 +30,11 @@ public class PlayerController : MonoBehaviour
         if (collision.gameObject.CompareTag("Ground"))
         {
             GroundSpawner.groundSpawner.GroundSpawn();
+            DestroyObject(collision.gameObject);
         }
+    }
+    void DestroyObject(GameObject obj)
+    {
+        Destroy(obj, 3);
     }
 }
