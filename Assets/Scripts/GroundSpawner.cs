@@ -5,7 +5,7 @@ using UnityEngine;
 public class GroundSpawner : MonoBehaviour
 {
     public static GroundSpawner groundSpawner;
-    [SerializeField] GameObject groundPrefab, lastGround, coin;
+    [SerializeField] GameObject groundPrefab, lastGround, coin, powerup;
     private void Awake()
     {
         groundSpawner = this;
@@ -31,9 +31,14 @@ public class GroundSpawner : MonoBehaviour
             direction = Vector3.back;
 
         }
-        if (Random.Range(0, 7) == 1)
+        float random = Random.Range(0, 20);
+        if (random == 1 || random == 10)
         {
-            Instantiate(coin, lastGround.transform.position + (Vector3.up * .5f), lastGround.transform.rotation);
+            Instantiate(coin, lastGround.transform.position + (Vector3.up * .75f), lastGround.transform.rotation);
+        }
+        if (random == 12)
+        {
+            Instantiate(powerup, lastGround.transform.position + (Vector3.up * .75f), lastGround.transform.rotation);
         }
         lastGround = Instantiate(groundPrefab, lastGround.transform.position + direction, lastGround.transform.rotation);
     }

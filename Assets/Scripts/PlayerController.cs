@@ -10,7 +10,12 @@ public class PlayerController : MonoBehaviour
     public static bool isDead = false;
     public float speedMultiplier;
     float score;
-    [SerializeField] Text scoreText;
+    [SerializeField] Text scoreText, bestScoreText;
+    string bestScoreKey = "BestScore";
+    private void Start()
+    {
+        bestScoreText.text = "Best Score: " + PlayerPrefs.GetFloat(bestScoreKey);
+    }
     private void Update()
     {
         if (isDead)
@@ -62,12 +67,23 @@ public class PlayerController : MonoBehaviour
         if (other.CompareTag("Coin"))
         {
             score += 5;
+            if (PlayerPrefs.GetFloat(bestScoreKey) < score)
+            {
+                PlayerPrefs.SetFloat(bestScoreKey, score);
+            }
             scoreText.text = "Score: " + score;
+            bestScoreText.text = "Best Score: " + PlayerPrefs.GetFloat(bestScoreKey);
             Destroy(other.gameObject);
             if (score %30 == 0)
             {
                 speed += .1f;
             }
+        }
+        if (other.CompareTag("Powerup"))
+        {
+            float speedReduce = speed / 100;
+            speed -= speedReduce;
+            Destroy(other.gameObject);
         }
     }
 }
