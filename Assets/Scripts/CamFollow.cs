@@ -13,18 +13,10 @@ public class CamFollow : MonoBehaviour
     }
     private void LateUpdate()
     {
-        if (PlayerController.isDead)
+        if (RestartGame.isDead)
         {
             return;
         }
         transform.position = Vector3.Lerp(transform.position, target.transform.position + distance, Time.deltaTime * 5);
-    }
-    public void Restart()
-    {
-        SceneManager.LoadScene(SceneManager.GetActiveScene().name);
-    }
-    public void Exit()
-    {
-        Application.Quit();
     }
 }

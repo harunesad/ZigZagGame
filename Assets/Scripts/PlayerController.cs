@@ -7,20 +7,22 @@ public class PlayerController : MonoBehaviour
 {
     Vector3 direction = Vector3.left;
     [SerializeField] float speed;
-    public static bool isDead = false;
     public float speedMultiplier;
     float score;
     [SerializeField] Text scoreText, bestScoreText;
     string bestScoreKey = "BestScore";
-    public GameObject restartPanel;
+    public GameObject restartPanel, playGamePanel;
     private void Start()
     {
-        isDead = false;
+        if (RestartGame.isRestart)
+        {
+            playGamePanel.SetActive(false);
+        }
         bestScoreText.text = "Best Score: " + PlayerPrefs.GetFloat(bestScoreKey);
     }
     private void Update()
     {
-        if (isDead)
+        if (RestartGame.isDead)
         {
             return;
         }
@@ -37,16 +39,19 @@ public class PlayerController : MonoBehaviour
         }
         if (transform.position.y < .1f)
         {
-            isDead = true;
+            RestartGame.isDead = true;
             Destroy(gameObject, 1);
             restartPanel.SetActive(true);
         }
     }
     private void FixedUpdate()
     {
+        if (RestartGame.isDead)
+        {
+            return;
+        }
         Vector3 movement = direction * speed * Time.deltaTime;
         transform.position += movement;
-        //speed += Time.deltaTime * speedMultiplier;
     }
     private void OnCollisionExit(Collision collision)
     {
@@ -89,5 +94,10 @@ public class PlayerController : MonoBehaviour
             speed -= speedReduce;
             Destroy(other.gameObject);
         }
+    }
+    public void Play()
+    {
+        RestartGame.isDead = false;
+        playGamePanel.SetActive(false);
     }
 }
