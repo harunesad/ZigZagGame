@@ -1,12 +1,16 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.UI;
 
 public class PlayerController : MonoBehaviour
 {
     Vector3 direction = Vector3.left;
     [SerializeField] float speed;
     public static bool isDead = false;
+    public float speedMultiplier;
+    float score;
+    [SerializeField] Text scoreText;
     private void Update()
     {
         if (isDead)
@@ -34,22 +38,36 @@ public class PlayerController : MonoBehaviour
     {
         Vector3 movement = direction * speed * Time.deltaTime;
         transform.position += movement;
+        //speed += Time.deltaTime * speedMultiplier;
     }
     private void OnCollisionExit(Collision collision)
     {
         if (collision.gameObject.CompareTag("Ground"))
         {
             GroundSpawner.groundSpawner.GroundSpawn();
-            StartCoroutine(Destroy(collision.gameObject));
+            StartCoroutine(DestroyObject(collision.gameObject));
         }
     }
     #region Destroy
-    IEnumerator Destroy(GameObject obj)
+    IEnumerator DestroyObject(GameObject obj)
     {
-        yield return new WaitForSeconds(.5f);
+        yield return new WaitForSeconds(.2f);
         obj.AddComponent<Rigidbody>();
-        yield return new WaitForSeconds(.5f);
+        yield return new WaitForSeconds(2f);
         Destroy(obj);
     }
     #endregion
+    private void OnTriggerEnter(Collider other)
+    {
+        if (other.CompareTag("Coin"))
+        {
+            score += 5;
+            scoreText.text = "Score: " + score;
+            Destroy(other.gameObject);
+            if (score %30 == 0)
+            {
+                speed += .1f;
+            }
+        }
+    }
 }
