@@ -15,6 +15,16 @@ public class GroundSpawner : MonoBehaviour
 
     void GroundSpawn()
     {
-        lastGround = Instantiate(groundPrefab, lastGround.transform.position + Vector3.back, lastGround.transform.rotation);
+        Vector3 direction;
+
+        if (Random.Range(0, 2) == 0)
+        {
+            direction = Vector3.left;
+        }
+        else
+        {
+            direction = Vector3.back;
+        }
+        lastGround = Instantiate(groundPrefab, lastGround.transform.position + direction, lastGround.transform.rotation);
     }
 }
