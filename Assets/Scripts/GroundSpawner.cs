@@ -12,7 +12,7 @@ public class GroundSpawner : MonoBehaviour
     }
     private void Start()
     {
-        for (int i = 0; i < 20; i++)
+        for (int i = 0; i < 10; i++)
         {
             GroundSpawn();
         }
@@ -34,12 +34,10 @@ public class GroundSpawner : MonoBehaviour
         float random = Random.Range(0, 20);
         if (random == 1 || random == 10)
         {
-            //Instantiate(coin, lastGround.transform.position + (Vector3.up * .75f), lastGround.transform.rotation);
             lastGround.transform.GetChild(0).gameObject.SetActive(true);
         }
         if (random == 12)
         {
-            //Instantiate(powerup, lastGround.transform.position + (Vector3.up * .75f), lastGround.transform.rotation);
             lastGround.transform.GetChild(1).gameObject.SetActive(true);
         }
         lastGround = Instantiate(groundPrefab, lastGround.transform.position + direction, lastGround.transform.rotation);

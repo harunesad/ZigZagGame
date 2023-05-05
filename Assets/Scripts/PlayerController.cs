@@ -12,8 +12,10 @@ public class PlayerController : MonoBehaviour
     float score;
     [SerializeField] Text scoreText, bestScoreText;
     string bestScoreKey = "BestScore";
+    public GameObject restartPanel;
     private void Start()
     {
+        isDead = false;
         bestScoreText.text = "Best Score: " + PlayerPrefs.GetFloat(bestScoreKey);
     }
     private void Update()
@@ -37,6 +39,7 @@ public class PlayerController : MonoBehaviour
         {
             isDead = true;
             Destroy(gameObject, 1);
+            restartPanel.SetActive(true);
         }
     }
     private void FixedUpdate()

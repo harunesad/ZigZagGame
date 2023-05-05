@@ -1,6 +1,7 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.SceneManagement;
 
 public class CamFollow : MonoBehaviour
 {
@@ -17,5 +18,13 @@ public class CamFollow : MonoBehaviour
             return;
         }
         transform.position = Vector3.Lerp(transform.position, target.transform.position + distance, Time.deltaTime * 5);
+    }
+    public void Restart()
+    {
+        SceneManager.LoadScene(SceneManager.GetActiveScene().name);
+    }
+    public void Exit()
+    {
+        Application.Quit();
     }
 }
