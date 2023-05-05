@@ -7,7 +7,6 @@ public class PlayerController : MonoBehaviour
 {
     Vector3 direction = Vector3.left;
     [SerializeField] float speed;
-    public float speedMultiplier;
     float score;
     [SerializeField] Text scoreText, bestScoreText;
     string bestScoreKey = "BestScore";
@@ -42,6 +41,8 @@ public class PlayerController : MonoBehaviour
             RestartGame.isDead = true;
             Destroy(gameObject, 1);
             restartPanel.SetActive(true);
+            Destroy(this);
+            Destroy(FindObjectOfType<CamFollow>());
         }
     }
     private void FixedUpdate()
@@ -50,6 +51,7 @@ public class PlayerController : MonoBehaviour
         {
             return;
         }
+
         Vector3 movement = direction * speed * Time.deltaTime;
         transform.position += movement;
     }
