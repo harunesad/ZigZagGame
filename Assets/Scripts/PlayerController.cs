@@ -70,6 +70,7 @@ public class PlayerController : MonoBehaviour
             if (PlayerPrefs.GetFloat(bestScoreKey) < score)
             {
                 PlayerPrefs.SetFloat(bestScoreKey, score);
+                scoreText.color = Color.blue;
             }
             scoreText.text = "Score: " + score;
             //bestScoreText.text = "Best Score: " + PlayerPrefs.GetFloat(bestScoreKey);
