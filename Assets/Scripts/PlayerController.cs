@@ -72,7 +72,7 @@ public class PlayerController : MonoBehaviour
                 PlayerPrefs.SetFloat(bestScoreKey, score);
             }
             scoreText.text = "Score: " + score;
-            bestScoreText.text = "Best Score: " + PlayerPrefs.GetFloat(bestScoreKey);
+            //bestScoreText.text = "Best Score: " + PlayerPrefs.GetFloat(bestScoreKey);
             Destroy(other.gameObject);
             if (score %30 == 0)
             {
