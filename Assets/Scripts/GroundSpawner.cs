@@ -4,7 +4,12 @@ using UnityEngine;
 
 public class GroundSpawner : MonoBehaviour
 {
+    public static GroundSpawner groundSpawner;
     [SerializeField] GameObject groundPrefab, lastGround;
+    private void Awake()
+    {
+        groundSpawner = this;
+    }
     private void Start()
     {
         for (int i = 0; i < 10; i++)
@@ -13,7 +18,7 @@ public class GroundSpawner : MonoBehaviour
         }
     }
 
-    void GroundSpawn()
+    public void GroundSpawn()
     {
         Vector3 direction;
 

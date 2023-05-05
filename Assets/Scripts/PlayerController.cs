@@ -25,4 +25,11 @@ public class PlayerController : MonoBehaviour
         Vector3 movement = direction * speed * Time.deltaTime;
         transform.position += movement;
     }
+    private void OnCollisionExit(Collision collision)
+    {
+        if (collision.gameObject.CompareTag("Ground"))
+        {
+            GroundSpawner.groundSpawner.GroundSpawn();
+        }
+    }
 }
