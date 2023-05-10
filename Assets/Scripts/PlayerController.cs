@@ -8,7 +8,7 @@ public class PlayerController : MonoBehaviour
     Vector3 direction = Vector3.left;
     [SerializeField] float speed;
     float score;
-    [SerializeField] Text scoreText, bestScoreText;
+    [SerializeField] Text scoreText, bestScoreText, startBestScoreText;
     string bestScoreKey = "BestScore";
     public GameObject restartPanel, playGamePanel;
     public Animator textAnim;
@@ -20,6 +20,7 @@ public class PlayerController : MonoBehaviour
             playGamePanel.SetActive(false);
         }
         bestScoreText.text = "Best Score: " + PlayerPrefs.GetFloat(bestScoreKey);
+        startBestScoreText.text = "Best Score: " + PlayerPrefs.GetFloat(bestScoreKey);
     }
     private void Update()
     {
